@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section>
+    <h2>Add a New Note</h2>
+    <form method="post">
+      <textarea name="content" rows="3" placeholder="Write your note here..."></textarea>
+      <button type="submit">Add Note</button>
+    </form>
+  </section>
+  <section>
+    <h2>Your Notes</h2>
+    {% if notes %}
+      <ul>
+      {% for note in notes %}
+        <li>
+          {{ note.content }}
+          <form action="{{ url_for('notes.delete', note_id=note.id) }}" method="post" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p>No notes yet. Add one!</p>
+    {% endif %}
+  </section>
+{% endblock %}
